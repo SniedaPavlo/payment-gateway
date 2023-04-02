@@ -87,7 +87,7 @@ const DetailsForm = () => {
 					<input
 						type="text"
 						className="bg-white placeholder-gray-700 px-5 md:px-6 text-sm py-4 rounded-xl"
-						placeholder="Fee Amount USD *"
+						placeholder="Fee Amount AUD *"
 						name="feesAmount"
 						{...register("feesAmount", {
 							required: {

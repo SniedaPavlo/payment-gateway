@@ -6,7 +6,7 @@ export default async (req, res) => {
 	const item = {
 		quantity: 1,
 		price_data: {
-			currency: "usd",
+			currency: "aud",
 			unit_amount: amount * 100,
 			product_data: {
 				name: "McMine University Fees",
