@@ -12,7 +12,7 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main className="bg-gray-900 w-100 pb-12 gap-10 flex flex-col px-8">
+			<main className="bg-gray-900 w-100 min-h-screen pb-12 gap-10 flex flex-col px-8">
 				<Navbar />
 				<div className="px-2 md:px-10 flex flex-col gap-10">
 					<div className="flex flex-col gap-3 items-start">
