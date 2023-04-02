@@ -1,8 +1,9 @@
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { Rings } from "react-loader-spinner";
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
 const DetailsForm = () => {
@@ -13,9 +14,12 @@ const DetailsForm = () => {
 		formState: { errors },
 	} = useForm();
 
+	const [loading, setLoading] = useState(false);
+
 	const feesAmountInput = watch("feesAmount");
 
 	const onSubmit = async (data) => {
+		setLoading(true);
 		const stripe = await stripePromise;
 		const paymentSession = await axios.post("/api/payment-session", {
 			email: data?.email,
@@ -29,6 +33,7 @@ const DetailsForm = () => {
 		if (result?.error) {
 			toast.error(result?.error?.message);
 		}
+		setLoading(false);
 	};
 
 	return (
@@ -102,13 +107,30 @@ const DetailsForm = () => {
 						</span>
 					)}
 				</div>
-				<button className="bg-gray-900 px-6 text-sm py-4 rounded-xl">
-					<span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-transparent bg-clip-text">
-						Pay Fees{" "}
-						{feesAmountInput &&
-							feesAmountInput > 0 &&
-							`( ${feesAmountInput} USD )`}
-					</span>
+				<button
+					className={`bg-gray-900 px-6 flex items-center justify-center jus text-center text-sm ${
+						!loading && "py-4"
+					} rounded-xl`}
+				>
+					{loading ? (
+						<Rings
+							height="50"
+							width="50"
+							color="#fff"
+							radius="6"
+							wrapperStyle={{}}
+							wrapperClass=""
+							visible={true}
+							ariaLabel="rings-loading"
+						/>
+					) : (
+						<span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-transparent bg-clip-text">
+							Pay Fees{" "}
+							{feesAmountInput &&
+								feesAmountInput > 0 &&
+								`( ${feesAmountInput} USD )`}
+						</span>
+					)}
 				</button>
 			</form>
 		</div>
