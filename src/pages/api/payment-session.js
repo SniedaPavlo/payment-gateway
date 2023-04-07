@@ -6,10 +6,10 @@ export default async (req, res) => {
 	const item = {
 		quantity: 1,
 		price_data: {
-			currency: "aud",
+			currency: "NOK",
 			unit_amount: amount * 100,
 			product_data: {
-				name: "McMine University Fees",
+				name: "Nord University Fees",
 				// images: [`${process.env.HOST}/mu.png`],
 			},
 		},

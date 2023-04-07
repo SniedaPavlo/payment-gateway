@@ -1,9 +1,20 @@
-import DetailsForm from "@/components/DetailsForm";
-import Navbar from "@/components/Navbar";
+import StudentDetails from "@/components/StudentDetails";
+import { studentLoginDetail } from "@/constants";
+import { getToken } from "@/constants/token";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 
 export default function Home() {
+	const router = useRouter();
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			if (!localStorage.getItem("token")) {
+				router.push("/login");
+			}
+		}
+	}, []);
 	return (
 		<>
 			<Head>
@@ -12,23 +23,20 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main className="bg-gray-900 w-100 min-h-screen pb-12 gap-10 flex flex-col px-4">
-				<Navbar />
+			<main className="w-100 min-h-screen pb-12 gap-10 flex flex-col px-4">
 				<div className="px-2 md:px-10 flex flex-col gap-10">
 					<div className="flex flex-col gap-3 items-start">
-						<h1 className="text-4xl font-medium bg-gradient-to-r from-cyan-500 to-blue-500 text-transparent bg-clip-text">
-							McMine University Payment Portal
+						<h1 className="text-4xl font-bold bg-gradient-to-r from-[#03618B] to-[#03618C] text-transparent bg-clip-text">
+							Welcome {studentLoginDetail?.fullName},
 						</h1>
-						<h2 className="text-3xl font-bold bg-white text-transparent bg-clip-text">
+						{/* <h1 className="text-5xl font-bold bg-gradient-to-r from-[#03618B] to-[#03618C] text-transparent bg-clip-text">
+							Nord University Payment Portal
+						</h1> */}
+						{/* <h2 className="text-3xl font-bold bg-[#667A85] text-transparent bg-clip-text">
 							Pay by card
-						</h2>
-						<p className="text-gray-300 font-light text-sm lg:text-base">
-							Paying through the University’s online facility is the preferred
-							method of payment, as it provides a flexible and easy way for you
-							to make payments towards your tuition fees.
-						</p>
+						</h2> */}
 					</div>
-					<DetailsForm />
+					<StudentDetails />
 				</div>
 				<Toaster />
 			</main>

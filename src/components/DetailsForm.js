@@ -1,5 +1,8 @@
+import { studentLoginDetail } from "@/constants";
+import { setToken } from "@/constants/token";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -15,100 +18,68 @@ const DetailsForm = () => {
 	} = useForm();
 
 	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 
 	const feesAmountInput = watch("feesAmount");
 
-	const onSubmit = async (data) => {
+	const onSubmit = (data) => {
 		setLoading(true);
-		const stripe = await stripePromise;
-		const paymentSession = await axios.post("/api/payment-session", {
-			email: data?.email,
-			amount: data?.feesAmount,
-		});
-
-		const result = await stripe.redirectToCheckout({
-			sessionId: paymentSession.data.id,
-		});
-
-		if (result?.error) {
-			toast.error(result?.error?.message);
+		if (
+			data?.studentId === studentLoginDetail?.studentId &&
+			data?.password === studentLoginDetail?.password
+		) {
+			setToken(studentLoginDetail?.studentId);
+			router.push("/");
+		} else {
+			toast.error("Oops! Invalid Credentials!");
 		}
 		setLoading(false);
 	};
 
 	return (
-		<div className="flex flex-col w-full lg:w-1/2 p-6 md:p-8 rounded-xl gap-6 bg-gradient-to-r to-cyan-500 from-blue-500">
-			<h3 className="text-2xl font-medium text-gray-900">Your Details</h3>
+		<div className="flex flex-col w-full lg:w-1/2 p-6 md:p-8 rounded-xl gap-6 bg-gradient-to-r to-[#03618B] from-[#03618B]">
+			<h3 className="text-2xl font-medium text-gray-300">Student Login</h3>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
 				<div className="flex flex-col gap-2">
 					<input
 						type="text"
 						className="bg-white placeholder-gray-700 px-5 md:px-6 text-sm py-4 rounded-xl"
-						placeholder="Your Full Name *"
-						name="fullName"
-						{...register("fullName", {
-							required: "Field is required",
-							pattern: {
-								value: /^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$/,
-								message: "Only alphabets are allowed",
+						placeholder="Student ID *"
+						name="studentId"
+						{...register("studentId", {
+							required: {
+								value: true,
+								message: "Student ID is required",
 							},
 						})}
 					/>
-					{errors?.fullName && (
-						<span className="text-red-900 text-xs">
-							{errors?.fullName?.message}
+					{errors?.studentId && (
+						<span className="text-red-200 text-xs">
+							{errors?.studentId?.message}
 						</span>
 					)}
 				</div>
 				<div className="flex flex-col gap-2">
 					<input
-						type="text"
+						type="password"
 						className="bg-white placeholder-gray-700 px-5 md:px-6 text-sm py-4 rounded-xl"
-						placeholder="Your Email *"
-						name="email"
-						{...register("email", {
+						placeholder="Password *"
+						name="password"
+						{...register("password", {
 							required: {
 								value: true,
-								message: "Field is required",
-							},
-							pattern: {
-								value: /^\S+@\S+\.\S+$/,
-								message: "Please enter a valid email address",
+								message: "Password is required",
 							},
 						})}
 					/>
-					{errors?.email && (
-						<span className="text-red-900 text-xs">
-							{errors?.email?.message}
-						</span>
-					)}
-				</div>
-				<div className="flex flex-col gap-2">
-					<input
-						type="text"
-						className="bg-white placeholder-gray-700 px-5 md:px-6 text-sm py-4 rounded-xl"
-						placeholder="Fee Amount AUD *"
-						name="feesAmount"
-						{...register("feesAmount", {
-							required: {
-								value: true,
-								message: "Field is required",
-							},
-							pattern: {
-								value: /^(?!0\d)\d{0,4}(\.\d{1,2})?$|10000(\.0{1,2})?$/,
-								message:
-									"Enter vaild amount and it should not be greater than 10000 USD",
-							},
-						})}
-					/>
-					{errors?.feesAmount && (
-						<span className="text-red-900 text-xs">
-							{errors?.feesAmount?.message}
+					{errors?.password && (
+						<span className="text-red-200 text-xs">
+							{errors?.password?.message}
 						</span>
 					)}
 				</div>
 				<button
-					className={`bg-gray-900 px-6 flex items-center justify-center jus text-center text-sm ${
+					className={`bg-[#1A1916] px-6 flex items-center justify-center text-center text-sm ${
 						!loading && "py-4"
 					} rounded-xl`}
 				>
@@ -124,8 +95,8 @@ const DetailsForm = () => {
 							ariaLabel="rings-loading"
 						/>
 					) : (
-						<span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-transparent bg-clip-text">
-							Pay Fees{" "}
+						<span className="text-white">
+							LOGIN
 							{feesAmountInput &&
 								feesAmountInput > 0 &&
 								`( ${feesAmountInput} USD )`}
