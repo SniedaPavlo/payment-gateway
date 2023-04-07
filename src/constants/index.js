@@ -1,7 +1,8 @@
 export const studentLoginDetail = {
-	studentId: "nikunj",
-	password: "admin123",
-	fullName: "Nikunj Ashvinbhai Thesiya",
+	studentId: "ksorathiya761",
+	password: "Ndu772bd",
+	fullName: "Krish Anilbhai Sorathiya",
+	studentReferenceNo: "ND2390761",
 };
 
 export const ALL_COUNTRIES = [

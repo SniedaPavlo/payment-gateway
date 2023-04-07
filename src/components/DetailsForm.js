@@ -37,13 +37,13 @@ const DetailsForm = () => {
 	};
 
 	return (
-		<div className="flex flex-col w-full lg:w-1/2 p-6 md:p-8 rounded-xl gap-6 bg-gradient-to-r to-[#03618B] from-[#03618B]">
+		<div className="flex flex-col w-full p-6 md:p-8 rounded-xl gap-6 bg-gradient-to-r to-[#03618B] from-[#03618B]">
 			<h3 className="text-2xl font-medium text-gray-300">Student Login</h3>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-				<div className="flex flex-col gap-2">
+				<div className="flex flex-col w-full gap-2">
 					<input
 						type="text"
-						className="bg-white placeholder-gray-700 px-5 md:px-6 text-sm py-4 rounded-xl"
+						className="bg-white w-full placeholder-gray-700 px-5 md:px-6 text-sm py-4 rounded-xl"
 						placeholder="Student ID *"
 						name="studentId"
 						{...register("studentId", {
@@ -59,10 +59,10 @@ const DetailsForm = () => {
 						</span>
 					)}
 				</div>
-				<div className="flex flex-col gap-2">
+				<div className="flex flex-col w-full gap-2">
 					<input
 						type="password"
-						className="bg-white placeholder-gray-700 px-5 md:px-6 text-sm py-4 rounded-xl"
+						className="bg-white w-full placeholder-gray-700 px-5 md:px-6 text-sm py-4 rounded-xl"
 						placeholder="Password *"
 						name="password"
 						{...register("password", {

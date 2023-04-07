@@ -2,12 +2,14 @@ import Navbar from "@/components/Navbar";
 import App from "next/app";
 import { getToken } from "@/constants/token";
 import "@/styles/globals.css";
+import Footer from "@/components/Footer";
 
 export default function MyApp({ Component, pageProps, token }) {
 	return (
 		<div className="bg-[url('/nord-build.png')] bg-no-repeat bg-cover w-100 min-h-screen flex flex-col gap-8 ">
 			<Navbar token={token} />
 			<Component {...pageProps} />
+			<Footer />
 		</div>
 	);
 }
