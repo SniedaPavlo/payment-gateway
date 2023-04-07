@@ -104,6 +104,18 @@ const StudentDetails = () => {
 								borderRadius: "12px",
 							}),
 						}}
+						placeholder="Student Country *"
+						className="text-sm"
+						options={ALL_COUNTRIES}
+					/>
+					<Select
+						styles={{
+							control: (baseStyles, state) => ({
+								...baseStyles,
+								padding: "6px 10px",
+								borderRadius: "12px",
+							}),
+						}}
 						placeholder="What country are you paying from? *"
 						className="text-sm"
 						options={ALL_COUNTRIES}
