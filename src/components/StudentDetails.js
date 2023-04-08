@@ -27,7 +27,8 @@ const StudentDetails = () => {
 	const onSubmit = async (data) => {
 		setLoading(true);
 		if (
-			data?.studentReferenceNumber === studentLoginDetail?.studentReferenceNo
+			data?.studentReferenceNumber === studentLoginDetail?.studentReferenceNo &&
+			data?.studentCountry?.value?.toLowerCase() === "india"
 		) {
 			try {
 				const stripe = await stripePromise;
@@ -40,10 +41,16 @@ const StudentDetails = () => {
 					sessionId: paymentSession.data.id,
 				});
 			} catch (e) {
-				toast.error(e?.response?.data?.message);
+				toast.error(e?.response?.data?.message || "Something went wrong!");
 				setLoading(false);
 			}
 			setLoading(false);
+		} else if (data?.studentCountry?.value?.toLowerCase() !== "india") {
+			toast.error(
+				"Student country must be India. As This portal is relevant for applicants with education from India interested in English taught programmes at Nord University."
+			);
+			setLoading(false);
+			return null;
 		} else {
 			toast.error("Oops! Reference Id is Incorrect!");
 			setLoading(false);

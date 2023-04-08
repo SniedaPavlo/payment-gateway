@@ -8,7 +8,9 @@ export default function MyApp({ Component, pageProps, token }) {
 	return (
 		<div className="bg-[url('/nord-build.png')] bg-no-repeat bg-cover w-100 min-h-screen flex flex-col gap-8 ">
 			<Navbar token={token} />
-			<Component {...pageProps} />
+			<div className="max-w-[1440px]">
+				<Component {...pageProps} />
+			</div>
 			<Footer />
 		</div>
 	);

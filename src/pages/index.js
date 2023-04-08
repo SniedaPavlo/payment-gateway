@@ -63,10 +63,7 @@ export default function Home() {
 								raising a case using the ‘Get in touch’ form within the ‘Help
 								and Support’ section in The Hub.
 							</p>
-							<Link
-								legacyBehavior
-								href="https://www.nord.no/en/about/service-units/student-services"
-							>
+							<Link legacyBehavior href="https://www.nord.no/en/about/contact">
 								<span className="mt-3 flex gap-2 hover:underline cursor-pointer items-center">
 									<a className="text-[#01608A]">Get in Touch</a>
 									<BsBoxArrowInRight className="text-2xl text-[#01608A]" />
