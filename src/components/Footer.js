@@ -6,6 +6,9 @@ const Footer = () => {
 		<div className="d-flex flex-col">
 			<div className="w-100 px-5 py-4 bg-[#3C3C3B]">
 				<div className="flex items-start md:items-center flex-col md:flex-row gap-6 text-white text-xs">
+					<Link legacyBehavior href="https://www.nord.no/en/Student/">
+						<a>Home</a>
+					</Link>
 					<Link legacyBehavior href="https://www.nord.no/en/about/contact">
 						<a>Contact Us</a>
 					</Link>

@@ -2,14 +2,17 @@ import { studentLoginDetail } from "@/constants";
 import { setToken } from "@/constants/token";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Rings } from "react-loader-spinner";
+import Modal from "./Modal";
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
 const DetailsForm = () => {
+	const [modalShow, setModalShow] = useState(false);
 	const {
 		register,
 		handleSubmit,
@@ -78,6 +81,13 @@ const DetailsForm = () => {
 						</span>
 					)}
 				</div>
+				<span
+					className="text-white hover:underline cursor-pointer text-sm text-end"
+					onClick={() => setModalShow(true)}
+				>
+					Send new password to your email
+				</span>
+				{modalShow && <Modal setModalShow={setModalShow} />}
 				<button
 					className={`bg-[#1A1916] px-6 flex items-center justify-center text-center text-sm ${
 						!loading && "py-4"
